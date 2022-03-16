@@ -34,7 +34,7 @@ config = dict(
     # trining paramters
     learning_rate = 1e-5,
     weight_decay = 1e-2,
-    max_length = 512,
+    max_length = 480,
     train_batch_size = 4,
     valid_batch_size = 8,
     epochs_to_train = 5,
