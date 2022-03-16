@@ -31,23 +31,11 @@ config = dict(
     device = 'cuda' if torch.cuda.is_available() else 'cpu',
     
     # trining paramters
-    learning_rate = 3e-5,
-    weight_decay = 1e-2,
     max_length = 512,
-    train_batch_size = 16,
     valid_batch_size = 32,
-    epochs_to_train = 5,
-    total_epochs = 5,
-    grad_acc_steps = 2,
     
     # for this notebook
-    report_to = 'none',
-    output_dir = '',
-    fold_to_train = 0,
-    title = 'roberta-base',
-    debug = False,
     platform = 'kaggle', # kaggle, colab
-    inference_only = False,
 )
 
 def create_test_df():
@@ -94,7 +82,6 @@ class NBMETestData(torch.utils.data.Dataset):
         return {
             'input_ids': input_ids, 
             'attention_mask': attention_mask, 
-            # 'targets': labels, 
             'offset_mapping': offset_mapping, 
             'sequence_ids': sequence_ids,
         }

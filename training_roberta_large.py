@@ -76,19 +76,6 @@ def setup_wandb(name):
     )
     wandb.config = config
 
-def create_folds(data):
-    
-    data['kfold'] = -1
-    data['for_stratify'] = data['case_num'].astype(str) + '_' + data['feature_num'].astype(str)
-
-    kf = model_selection.StratifiedKFold(n_splits=config['num_folds'], shuffle=True, random_state=config['seed'])
-    for f, (t_, v_) in enumerate(kf.split(X=data, y=data['for_stratify'])):
-        data.loc[v_, 'kfold'] = f
-    
-    data.drop(['for_stratify'], axis=1, inplace=True)
-
-    return data
-
 
 def loc_list_to_ints(loc_list):
     to_return = []
@@ -105,7 +92,7 @@ def tokenize_and_add_labels(tokenizer, example):
         example["feature_text"],
         example["pn_history"],
         truncation="only_second",
-        max_length=480,
+        max_length=config['max_length'],
         padding="max_length",
         return_offsets_mapping=True
     )
